@@ -1,0 +1,44 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js"
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDIfL-iRantJcFrPvt2hWEAhR1wMDIb_CY",
+  authDomain: "xemphim-28586.firebaseapp.com",
+  projectId: "xemphim-28586",
+  storageBucket: "xemphim-28586.firebasestorage.app",
+  messagingSenderId: "373001809935",
+  appId: "1:373001809935:web:6c2189cb78310eba6b737a",
+  measurementId: "G-2T3FJKHYD3"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, (user) => { // => Công dụng: xác định web của mình đã có người đăng nhập hay chưa ?
+	if (user) { // nếu có => chạy vô if này
+	  // User is signed in, see docs for a list of available properties
+	  // https://firebase.google.com/docs/reference/js/firebase.User
+	  const uid = user.uid;
+	  // ...
+	} else { // nếu không, chạy vô else này
+	  // User is signed out
+  	  // ...
+      window.location.href = "sign_in.html";
+	}
+  });
+
+  document.getElementById("signout").onclick = () => {
+    signOut(auth).then(() => {
+       // Sign-out successful.
+       window.location.href = "sign_in.html";
+     }).catch((error) => {
+       // An error happened.
+	   alert("Đăng xuất thất bại");
+     });
+    }
